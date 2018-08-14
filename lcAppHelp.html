@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Help</title>
+		<style type="text/css">
+			#bigbox {
+				border: 3px ridge #b22400; 
+				padding: 25px;
+				margins: 1px;
+			}
+			h2 {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 1.2em;
+				color: #1d52c2;
+				width: 600px;
+				margin: 0 40px 0 0;	
+			}
+			h3 {
+				color: #b22400;
+				border-bottom: 1px solid #1d52c2;
+				overflow: hidden;
+			}
+			p {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: .9em;
+				color: #000000;
+			}
+			a {
+				text-decoration: none;
+			}
+			a.button {    
+				border: solid 1px #1d52c2;
+				background-color: #1d52c2;
+				padding: 2px 2px 2px 2px;
+				color: #fff;
+				
+			}
+			a.button:hover {
+				background-color: #fff;
+				color: #1d52c2;
+			}
+		</style>
+		<script TYPE="text/javascript">
+			function targetopener(mylink, closeme, closeonly){
+				if (!(window.focus && window.opener)) return true;
+				window.opener.focus();
+				if (!closeonly) window.opener.location.href=mylink.href;
+				if (closeme) window.close();
+				return false;
+			};
+		</script>
+	</head>
+	<body>
+
+		<div id="bigbox">
+			<div id="closeLink2">
+				<a href="http://www.ctps.org/geoserver/www/marymcs/lcApp/index.html" class="button"
+				onclick="return targetopener(this,true,true)">Close help window</a>   
+			</div>	<!--   END OF CLOSELINK  -->
+			<h3>Introduction </h3>
+			<p>	
+				This application may be used to browse CTPS's database of information on 
+				various factors associated with the 'livability' of communities. The database
+				includes information on the following factors for the 101 cities and towns
+				in the Boston MPO region
+				<ol>
+					<li>population density </li>
+					<li>employment density </li>
+					<li>percentage of the population over age 70 </li>
+					<li>percentage of non-interstate road mileage with sidewalks on at least one side </li>
+					<li>number of miles of non-interstate roadways with sidewalks on at least one side </li>
+					<li>year 2000 journey-to-work resident walk share (see below) </li>
+					<li>number of miles of off-road bicycle trails </li>
+					<li>number of miles non-interstate roadways with bicycle lanes or shoulders > 4 feet wide </li>
+					<li>percentage of non-interstate roadways with bicycle lanes or shoulders > 4 feet wide  </li>
+					<li>year 2000 journey-to-work resident bicycle share (see below) </li>
+					<li>number of automobiles per household </li>
+					<li>number of daily vehicle miles traveled (VMT) per household </li>
+					<li>pedestrian crash rate: number of crashes involving pedestrians per year per 1,000 residents </li>
+					<li>bicycle crash rate: number of crashes involving bicyclists per year per 1,000 residents </li>
+				</ol>
+			</p>
+			<h4>Journey to Work Mode Share Data</h4>
+			<p>
+				Journey to Work information was compiled by the United States Census Bureau using data derived
+				from the long form questionnaire administered during the year 2000 decennial Census of Population.
+				For more information, see the Census Bureau's 
+				<a href="http://www.census.gov/population/www/socdemo/journey.html">
+					Journey to Work and Place of Work
+				</a>
+				web page.
+			</p>
+			<br/>
+			<h3>Using the Application</h3>
+			<p>This application allows the data to be queried and displayed in three ways:
+				<ol>
+					<li>
+						Setting a theme for the map display by selecting a theme (such as Population Density) 
+						from the "Select Map Theme" combo box.
+					</li>
+					<li>
+						Livability data for a particular town or city may be obtained by selecting a municipality in the
+						"Select A Municipality" combo box. This data is displayed in the tabbed panel at the bottom of the 
+						application window. 
+					</li>
+					<li>
+						Data for the currently selected map theme for a particular town or city can be obtained by clicking
+						on a municipality in the map display with your mouse. The selected municipality is highlighted on the map, 
+						and the data for it is displayed in the tabbed panel at the bottom of the application window.
+					</li>
+				</ol>
+			</p>
+			<br/>
+			<h3>Data Sources</h3>
+			<p>The data displayed by this application come from:
+				<ul>
+					<li>United States Bureau of the Census </li>
+					<li>Massachusetts Office of Geographic Information (MassGIS) </li>
+					<li>Massachusetts Department of Transportation (MassDOT) </li>
+					<li>Boston Region Metropolitan Planning Organization </li>	  
+					<li>Metropolitan Area Planning Council (MAPC) </li>
+				</ul>
+			</p>
+			<br/>
+			<div id="closeLink">
+				<a href="http://www.ctps.org/geoserver/www/apps/lcApp/index.html" class="button"
+				onclick="return targetopener(this,true,true)" >Close help window</a>   
+			</div>	<!--   END OF CLOSELINK  -->
+
+		</div>	<!--   END OF BIGBOX    -->
+	</body>
+</html>
