@@ -1,0 +1,189 @@
+/**
+ *	Page Structure
+ */
+html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	  
+	font: 60% verdana, sans-serif;
+	line-height: 0.6;
+    color: #660099;
+	margin: 0;
+	padding: 0;
+    background-color: #57074e;
+}
+
+h1 {
+	line-height: 1.3em;
+	color: #660099;
+	font-size: 1.4em;
+}
+
+h2 {
+	font-size: 1.0em;
+	color:  #660099;
+	line-height: .8em;
+}
+
+h3 {
+	font-size: .8em;
+}
+
+#wrapper {
+/*  position: absolute; /**/
+    height:  595px;
+    width: 1200px;
+	margin: 20px auto;
+/*  margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 20px;	/**/
+    background-color: #fff;
+/*  border: 2px double #666666; /**/
+    border: 2px solid #1d52c2;
+}
+
+/**
+ *	Top Container -- Page header/title
+ */
+#top_container{
+	text-align: center;	
+}
+
+/**
+ *	Left Container -- theme selector, d3 map visualization and legends
+ */
+#left_container {
+	float: left;
+	padding: 0 0 0 10px;
+	width: 500px;
+	height: 420px;
+}
+
+#selected_theme {   
+	margin-bottom: 0;
+    margin-left: 0;
+}
+
+#map {		
+	position: absolute;   
+	height: 350px;
+	width: 480px;
+	border: 1.5px solid #660099;
+	margin-top: 2px;
+/*	margin-left: 20px;	*/
+	padding: 2px;
+ }
+
+#pointer {
+    float: left;
+    width: 170px;
+/*  color: #1d52c2;   */
+    margin-top: 365px;
+    margin-left: 30px;
+    line-height: normal;
+    font-size: 1.00em;
+}
+
+#legend_div {
+	position: relative;
+	margin-top: 365px;
+	margin-left: 250px;
+}
+
+#legend_div .legend_text {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.0em;
+	font-style: italic;
+	font-weight: bold;
+    color: #660099;
+}
+
+.d3-tip {
+	line-height: 1;
+	font-weight: bold;
+	padding: 12px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	border-radius: 2px;
+	text-align: left;
+	position: absolute;
+	z-index: 40;
+	font: 12px verdana, sans-serif;
+}
+
+/**
+ *	Right Container -- town selector, reset button, download data button,
+ *					   help button, accessible grid
+ */
+#right_container {	
+	float: right;  
+/*	margin-left: 570px;  */
+	width: 670px;
+	padding: 0 0 0 10px;
+	margin-top: 2px;
+	
+}
+
+#button_bank {
+	margin-bottom: 30px;
+	padding: 0 0 30px 0;
+}
+
+#demog_grid, #walk_grid, #bike_grid, #auto_grid, #phs_grid, #ms_grid {
+/*	border: 1px solid blue;	   */
+	margin-top: 10px;
+	background-color: #ffffff;
+	padding: 3px;
+	font-size: 1.2em;
+}
+
+#demog_grid th,#walk_grid th,#bike_grid th,#auto_grid th,#phs_grid th,#ms_grid th {
+/*	border: 0.2px solid blue;   
+	border-collapse: collapse;   */
+	background-color: #bfcff3;
+	padding: 3px;
+	font-size: 80%;
+}
+
+/*  made specific to data tables so that 'close' button (created by ExtJS) does not get unwitting borders  */
+#demog_grid td,#walk_grid td,#bike_grid td,#auto_grid td,#phs_grid td,#ms_grid td {
+/*	border: .2px solid purple;
+	border-collapse: collapse;   */
+	background-color: #f2f6fe;
+	padding: 3px;
+}
+
+.tabs {
+	margin-top: 20px;
+	color: #2d006b;
+}
+.tabs .tabbody{
+	position:relative;
+} 
+
+#small_sample_warning {
+/*    color: #1d52c2;    */
+    margin: 10px 10px 10px 20px;
+    padding: 5px 10px 5px 5px;
+    line-height: normal;
+}
+
+/**
+ *	Other
+ */
+.hidden {
+	visibility: hidden;
+}
+
+.unhidden {
+	visibility: visible;
+}
+
+.offscreen {
+	position: absolute;
+	left: -500em;
+	top: -100em;
+}
