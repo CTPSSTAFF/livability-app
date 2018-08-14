@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!--  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">   -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Livable Communities Data Browser</title>
+
+		<!--  HAS TO BE IN HERE for CSS tags relating to "simple-sliding-doors" to work  -->
+		<script type="text/javascript">document.documentElement.className += " js";</script>       
+
+		<!-- ***  Stylesheets ***  -->
+		<!--  <link rel="stylesheet" href="../../libs/accessibleTabs/accessibleTabs-1.9.4/slidingdoors/simple-sliding-doors.css" type="text/css" media="screen">  -->   <!--  UNCUSTOMIZED LIBRARY VERSION  -->  
+		<link rel="stylesheet" type="text/css" href="simple-sliding-doors/simple-sliding-doors.css"/>	<!--    CUSTOMIZED VERSION   -->
+		<link rel="stylesheet" type="text/css" href="lcApp.css"/> 
+
+		<!-- *** JavaScript for jQuery library. *** -->
+		<script src="../../libs/jquery/jquery-1.7.1/jquery-1.7.1.js" type="text/javascript"></script>
+		
+		<!-- *** JavaScript for d3 library. *** -->
+		<script src="../../libs/d3/d3-4.8.0/d3.js"></script>
+		<script src="../../libs/d3-tip/d3-tip-d3v4/index.js"></script>
+		<script src="https://unpkg.com/topojson@3.0.0"></script>
+	
+		<!-- *** JavaScript for Accessible Grids *** -->
+		<script src="../../libs/accessibleGrid/accessibleGrid.js" type="text/javascript"></script>
+		
+		<!-- *** JavaScript for Accessible Tabs -- Creates Tabs on Accessible Grid, allows for events to switch between tabs. *** -->
+		<script src="../../libs/accessibleTabs/accessibleTabs-1.9.4/js/jquery-1.7.min.js" type="text/javascript"></script>
+		<script src="../../libs/accessibleTabs/accessibleTabs-1.9.4/js/jquery.tabs.js" type="text/javascript"></script>
+		<script src="../../libs/accessibleTabs/accessibleTabs-1.9.4/js/jquery.syncheight.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(".tabs").accessibleTabs({
+					tabhead:'h2',
+					fx:"fadeIn",
+					syncheights:true,
+					pagination:false
+				});
+			});
+		</script>
+		
+		<!-- *** CTPS JavaScript library - has initialized arrays of towns in MPO region and in MA, etc. *** -->
+		<script src="../../libs/utils/ctpsutils.js" type="text/javascript"></script>
+
+		<!-- *** JavaScript to record page views through Google Analytics. *** -->
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-39489988-1']);
+			_gaq.push(['_setDomainName', 'ctps.org']);
+			_gaq.push(['_setAllowLinker', true]);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+
+		<!-- *** Javascript for this application. *** -->
+		<script src="lcApp.js" type="text/javascript"></script>
+		
+		<!-- *** Javascript accomodation for searching for object in array for IEv7 and before. *** -->
+		<script type="text/javascript">
+			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf#Compatibility
+			if (!Array.prototype.indexOf) {
+				Array.prototype.indexOf = function(searchValue, index) {
+					// In non-strict-mode, if the `this` variable is null
+					// or undefined, then it is set the the window object.
+					// Else, `this` is automaticly converted to an object.
+					var len = this.length >>> 0; // convert ot number or 0
+
+					index |= 0;              // rounds and NaN-checks
+					if (index < 0)             // check if negative start
+						index = Math.max(len - index, 0);
+					else if (index >= len) // else, check if too big
+						return -1;
+
+					if (searchValue === undefined)
+						// Because searchValue is undefined, keys that
+						// don't exist will have the same value as the
+						// searchValue, and thus do need to be checked.
+						do {
+							if (index in this && this[index] === undefined)
+							return index;
+						} while (++index !== len)
+					else
+						// Because searchValue is not undefined, there's no
+						// need to check if the current key is in the array
+						// because if the key isn't in the array, then it's
+						// undefined which is not equal to the searchValue.
+						do {
+							if (this[index] === searchValue)
+							return index;
+						} while (++index !== len)
+
+					// if nothing was found, then simply return -1
+					return -1;
+				};
+			};
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+		
+			<div id="top_container">
+				<h1>Boston Region MPO Livable Communities Data Browser</h1>
+			</div>
+			<!--	end 'top_container'   -->
+			
+			<div id="left_container">
+				<div id="appDescription" class="offscreen"> <!--	for screen readers -->
+					Below is a map of Massachusetts used to display themes statewide by municipality after selecting map theme from a combo box. 
+					Data for themes by municipality can be displayed in accessible tables by selecting municipality from a combo box. 
+					Six tables will open for selected towns showing demographic data, walking, cycling and auto use shares, and mode to work from 2000 Census.
+				</div>
+				
+				<div id="theme_box">
+					<h2>Display Map Theme:</h2>
+					<select id="selected_theme" title="Select Map Theme">
+						<option value="">Select Map Theme</option>
+					</select>
+				</div>
+				
+				<div id="map"></div>    
+				<div id="pointer" class="hidden" aria-live="assertive"></div>
+				<div id="legend_div" class="hidden" aria-live="assertive">
+					<span class="legend_text"></span>
+				</div>    
+			</div>
+			<!--	end 'left_container'   -->
+
+			<div id="right_container">
+				<h2>Display Data Tables for One Municipality:</h2>
+				<div id='comboBank'>
+					<select id="selected_town" title="Select a municipality">
+						<option value="">Select A Municipality</option>
+					</select>
+				</div>
+				<!--	end 'comboBank' div  -->
+
+				<div id='buttonBank'>
+					<span id="download_button">
+						<input type="button" id="download_data" value="Download Data"/>
+						<a id="downloadAnchorTag" href=""></a>
+					</span>
+			  
+					<!--  NOTE: this button format specifically chosen to display image to which alt attribute applied to let screen-reader know about new window   -->
+					<button type="button" id="help_button">
+						<img src="images/newwindow-example.gif" alt="Help link opens new browser window"/>
+						&nbsp;&nbsp;Help
+					</button>
+				
+				</div>
+				<!--	end  'buttonBank div   -->
+
+				<div id="mytabs" class="tabs hidden">
+					<h2 id="demog">Demo-<br />graphics</h2>
+					<div class="tabbody">
+						<div id="tabs-1">
+							<div id="demog_grid"></div>
+						</div>
+					</div>
+					<h2 id="walk"><br />Walking</h2>			
+					<div class="tabbody">
+						<div id="tabs-2">
+							<div id="walk_grid"></div>
+						</div>
+					</div>	
+					<h2 id="bike"><br />Bicycling</h2>
+					<div class="tabbody">
+						<div id="tabs-3">
+							<div id="bike_grid"></div>
+						</div>
+					</div>
+					<h2 id="auto">Auto <br />Use</h2>
+					<div class="tabbody">
+						<div id="tabs-4">
+							<div id="auto_grid"></div>
+						</div>
+					</div>
+					<h2 id="health">Public Health<br />and Safety</h2>
+					<div class="tabbody">
+						<div id="tabs-5">
+							<div id="phs_grid"></div>
+						</div>
+					</div>
+					<h2 id="mode">JTW Mode<br />Share</h2>
+					<div class="tabbody">
+						<div id="tabs-6">
+							<div id="ms_grid"></div>
+						</div>
+					</div>
+				</div>
+				<!--    end 'mytabs'  -->
+
+				<div id="small_sample_warning" class="hidden">
+					Data items followed by an asterisk (*) are based on small samples (because of relatively low community employment levels); 
+					consequently, they lack statistical validity.
+				</div>
+			</div>
+			<!--	end 'right_container -->
+			
+		</div>
+		<!--    end 'wrapper'   -->
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				lcAppInit();	
+			});
+		</script>
+
+	</body>
+</html>
